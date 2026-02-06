@@ -3,6 +3,13 @@ import { useAssets } from "./hooks/useAssets";
 export function App() {
   const { assets, isConnected } = useAssets("ws://localhost:8000");
 
+  const sortedAssets = assets
+    ? [...assets].sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      )
+    : assets;
+
   return (
     <div className="min-h-screen bg-black text-white p-8 relative">
       <div className="absolute inset-0 bg-gradient-radial from-orange-950/20 via-transparent to-purple-950/10" />
@@ -26,7 +33,7 @@ export function App() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {assets?.map((a) => (
+          {sortedAssets?.map((a) => (
             <div
               key={a.id}
               className="bg-black/80 backdrop-blur-sm rounded-xl p-6 border border-purple-900/30 hover:border-orange-500/40 transition-all duration-300 hover:scale-105"
@@ -47,8 +54,8 @@ export function App() {
           ))}
         </div>
 
-        {!assets ||
-          (assets.length === 0 && (
+        {!sortedAssets ||
+          (sortedAssets.length === 0 && (
             <div className="text-center py-20">
               <div className="text-purple-400 text-lg font-medium">
                 {isConnected
