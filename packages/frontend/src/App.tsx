@@ -29,21 +29,19 @@ export function App() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
           {sortedAssets?.map((a) => (
             <div
               key={a.id}
-              className="bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-purple-900/30 hover:border-orange-500/40 transition-all duration-300 hover:scale-105"
+              className="bg-black/80 backdrop-blur-sm rounded-lg p-2 border border-purple-900/30 hover:border-orange-500/40 transition-all duration-300 hover:scale-105"
             >
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-black text-orange-400">
-                  {a.symbol}
-                </h3>
-                <div className="text-xl font-mono font-bold text-white">
-                  ${a.price.toFixed(2)}
-                </div>
+              <h3 className="text-lg font-black text-orange-400 mb-1">
+                {a.symbol}
+              </h3>
+              <div className="text-xl font-mono font-bold text-white mb-1">
+                ${a.price.toFixed(2)}
               </div>
-              <div className="text-xs text-purple-300 uppercase tracking-wider text-right mt-2">
+              <div className="text-xs text-purple-300 uppercase tracking-wider">
                 {new Date(a.updatedAt).toLocaleTimeString()}
               </div>
             </div>
