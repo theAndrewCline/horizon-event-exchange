@@ -32,7 +32,7 @@ export function App() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-4 max-w-2xl mx-auto">
           {sortedAssets?.map((a) => (
             <div
               key={a.id}
@@ -42,12 +42,11 @@ export function App() {
                 <h3 className="text-2xl font-black text-orange-400">
                   {a.symbol}
                 </h3>
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-orange-400 to-purple-400 animate-pulse" />
+                <div className="text-3xl font-mono font-bold text-white">
+                  ${a.price.toFixed(2)}
+                </div>
               </div>
-              <div className="text-3xl font-mono font-bold text-white mb-3">
-                ${a.price.toFixed(2)}
-              </div>
-              <div className="text-xs text-purple-300 uppercase tracking-wider">
+              <div className="text-xs text-purple-300 uppercase tracking-wider text-right">
                 {new Date(a.updatedAt).toLocaleTimeString()}
               </div>
             </div>
