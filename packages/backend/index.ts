@@ -1,6 +1,6 @@
 import { Database } from "bun:sqlite";
+import { type CurrentAssetsMessage, MessageSchema } from "core";
 import { AssetStore } from "./asset-store.ts";
-import { type CurrentAssetsMessage, MessageSchema } from "./schema.ts";
 
 const db = new Database("asset.db");
 const assetStore = new AssetStore(db);
@@ -10,7 +10,7 @@ const createCurrentAssetsMsg = (): CurrentAssetsMessage => {
   return { type: "CURRENT_ASSETS", assets };
 };
 
-Bun.serve({
+const server = Bun.serve({
   fetch(req, server) {
     if (server.upgrade(req)) {
       return;
@@ -41,3 +41,5 @@ Bun.serve({
     },
   },
 });
+
+console.log(`Server running at ${server.url}`);

@@ -17,12 +17,26 @@
     "packages/backend": {
       "name": "backend",
       "dependencies": {
+        "core": "workspace:*",
         "ulid": "^3.0.2",
         "zod": "^4.3.6",
       },
       "devDependencies": {
         "@types/bun": "latest",
         "chancejs": "^0.0.8",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
+    "packages/core": {
+      "name": "core",
+      "dependencies": {
+        "ulid": "^3.0.2",
+        "zod": "^4.3.6",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
       },
       "peerDependencies": {
         "typescript": "^5",
@@ -69,6 +83,8 @@
     "colors": ["colors@0.6.0-1", "", {}, "sha512-ZaQtySU44lmZRP6M+CovFWnu7QnxLTsr/3wURb7BCOV1/gKjUb/3uu3NsLR+fvA2Jfs6sNfwcVq0Tp2mWYbuxg=="],
 
     "commander": ["commander@1.0.5", "", { "dependencies": { "keypress": "0.1.x" } }, "sha512-Iil6cZ1vitahfQSTrGO3L4v3dtvnfyGpKkXN+aJV9uR24JYxhM9bUfBLat65nU7cIXzOcnkjGtfdCuqaO1caIQ=="],
+
+    "core": ["core@workspace:packages/core"],
 
     "cssom": ["cssom@0.2.5", "", {}, "sha512-b9ecqKEfWrNcyzx5+1nmcfi80fPp8dVM8rlAh7fFK14PZbNjp++gRjyZTZfLJQa/Lw0qeCJho7WBIl0nw0v6HA=="],
 

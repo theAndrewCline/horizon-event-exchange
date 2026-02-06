@@ -1,11 +1,11 @@
 import type { Database, Statement } from "bun:sqlite";
-import { ulid } from "ulid";
+import type { Asset, ID } from "core";
 import {
   type CreateAssetInput,
   DatabaseRowSchema,
   type UpdateAssetInput,
-} from "./schema.ts";
-import type { Asset, ID } from "./types.ts";
+} from "core";
+import { ulid } from "ulid";
 
 export class AssetStore {
   private db: Database;

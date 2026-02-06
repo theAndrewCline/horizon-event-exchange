@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export type ID = string;
+
 //
 // ASSET
 //
@@ -10,6 +12,8 @@ export const AssetSchema = z.object({
   price: z.number(),
   updatedAt: z.string(),
 });
+
+export type Asset = z.infer<typeof AssetSchema>;
 
 export const CreateAssetSchema = z.object({
   name: z.string().min(1),
