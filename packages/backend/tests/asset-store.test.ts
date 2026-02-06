@@ -1,5 +1,6 @@
 import { Database } from "bun:sqlite";
 import { beforeAll, describe, expect, it } from "bun:test";
+import { DatabaseRowSchema } from "core";
 import { AssetStore } from "../asset-store.ts";
 import { seedDatabase } from "../seed.ts";
 
@@ -39,9 +40,10 @@ describe("AssetStore.update", () => {
     // Verify the database actually has the updated item by querying directly
     const query = db
       .query("SELECT * FROM assets WHERE id = ?")
-      .get(newAsset.id) as any;
-    expect(query.price).toEqual(21000);
-    expect(query.updated_at).toEqual(updatedAsset.updatedAt);
+      .get(newAsset.id);
+    const result = DatabaseRowSchema.parse(query);
+    expect(result.price).toEqual(21000);
+    expect(result.updatedAt).toEqual(updatedAsset.updatedAt);
   });
 });
 
