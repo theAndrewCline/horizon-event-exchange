@@ -1,0 +1,17 @@
+{
+  "name": "backend",
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "chancejs": "^0.0.8"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "ulid": "^3.0.2",
+    "zod": "^4.3.6"
+  }
+}
