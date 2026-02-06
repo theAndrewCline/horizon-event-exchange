@@ -42,6 +42,18 @@
         "typescript": "^5",
       },
     },
+    "packages/generator": {
+      "name": "generator",
+      "dependencies": {
+        "core": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
   },
   "packages": {
     "@biomejs/biome": ["@biomejs/biome@2.3.14", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "2.3.14", "@biomejs/cli-darwin-x64": "2.3.14", "@biomejs/cli-linux-arm64": "2.3.14", "@biomejs/cli-linux-arm64-musl": "2.3.14", "@biomejs/cli-linux-x64": "2.3.14", "@biomejs/cli-linux-x64-musl": "2.3.14", "@biomejs/cli-win32-arm64": "2.3.14", "@biomejs/cli-win32-x64": "2.3.14" }, "bin": { "biome": "bin/biome" } }, "sha512-QMT6QviX0WqXJCaiqVMiBUCr5WRQ1iFSjvOLoTk6auKukJMvnMzWucXpwZB0e8F00/1/BsS9DzcKgWH+CLqVuA=="],
@@ -93,6 +105,8 @@
     "docco": ["docco@github:abe33/docco#199cbc8", { "bin": { "docco": "./bin/docco" } }, "abe33-docco-199cbc8"],
 
     "findit": ["findit@2.0.0", "", {}, "sha512-ENZS237/Hr8bjczn5eKuBohLgaD0JyUd0arxretR1f9RO46vZHA1b2y0VorgGV3WaOT3c+78P8h7v4JGJ1i/rg=="],
+
+    "generator": ["generator@workspace:packages/generator"],
 
     "glob": ["glob@3.1.14", "", { "dependencies": { "graceful-fs": "~1.1.2", "inherits": "1", "minimatch": "0.2" } }, "sha512-vsywJsa3Vtj88VIeLyzrKhjM7djI5ZmlWRjMF9aVVQoSY97pNzmfroi+5oSzvlXHD9Fq7PFMlii/gyQzCXX0DA=="],
 
