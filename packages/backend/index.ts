@@ -2,7 +2,7 @@ import { Database } from "bun:sqlite";
 import { type CurrentAssetsMessage, MessageSchema } from "core";
 import { AssetStore } from "./asset-store.ts";
 
-const db = new Database("asset.db");
+const db = new Database("assets.db");
 const assetStore = new AssetStore(db);
 
 const createCurrentAssetsMsg = (): CurrentAssetsMessage => {
@@ -23,17 +23,17 @@ const server = Bun.serve({
     },
 
     message: async (ws, raw_message) => {
-      const message = MessageSchema.parse(raw_message);
+      const message = MessageSchema.parse(JSON.parse(raw_message.toString()));
 
       switch (message.type) {
         case "UPDATE_ASSET": {
-          await assetStore.update(message.id, message.input);
+          assetStore.update(message.id, message.input);
           ws.sendText(JSON.stringify(createCurrentAssetsMsg()));
           break;
         }
 
         case "CREATE_ASSET": {
-          await assetStore.create(message.input);
+          assetStore.create(message.input);
           ws.sendText(JSON.stringify(createCurrentAssetsMsg()));
           break;
         }

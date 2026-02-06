@@ -68,7 +68,7 @@ export function seedDatabase(db: Database, count: number = 50): void {
     const price = generateRandomPrice();
 
     assetStore.create({
-      name: assetName as string,
+      symbol: assetName as string,
       price: price,
     });
   }

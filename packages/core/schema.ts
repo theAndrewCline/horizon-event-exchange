@@ -8,7 +8,7 @@ export type ID = string;
 
 export const AssetSchema = z.object({
   id: z.string().ulid(),
-  name: z.string(),
+  symbol: z.string(),
   price: z.number(),
   updatedAt: z.string(),
 });
@@ -16,7 +16,7 @@ export const AssetSchema = z.object({
 export type Asset = z.infer<typeof AssetSchema>;
 
 export const CreateAssetSchema = z.object({
-  name: z.string().min(1),
+  symbol: z.string().min(1),
   price: z.number().min(0),
 });
 
@@ -27,13 +27,13 @@ export const UpdateAssetSchema = z.object({
 export const DatabaseRowSchema = z
   .object({
     id: z.string(),
-    name: z.string(),
+    symbol: z.string(),
     price: z.number(),
     updated_at: z.string(),
   })
   .transform((row) => ({
     id: row.id,
-    name: row.name,
+    symbol: row.symbol,
     price: row.price,
     updatedAt: row.updated_at,
   }));

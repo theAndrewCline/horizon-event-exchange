@@ -24,7 +24,7 @@ export class AssetStore {
     const createTableSql = `
       CREATE TABLE IF NOT EXISTS assets (
         id TEXT PRIMARY KEY,
-        name TEXT NOT NULL,
+        symbol TEXT NOT NULL,
         price REAL NOT NULL,
         updated_at TEXT NOT NULL
       )
@@ -32,7 +32,7 @@ export class AssetStore {
     this.db.run(createTableSql);
 
     const createSql = `
-      INSERT INTO assets (id, name, price, updated_at)
+      INSERT INTO assets (id, symbol, price, updated_at)
       VALUES (?, ?, ?, ?)
     `;
     this.createStmt = this.db.prepare(createSql);
@@ -62,11 +62,11 @@ export class AssetStore {
     const id = ulid();
     const updatedAt = new Date().toISOString();
 
-    this.createStmt.run(id, input.name, input.price, updatedAt);
+    this.createStmt.run(id, input.symbol, input.price, updatedAt);
 
     return {
       id,
-      name: input.name,
+      symbol: input.symbol,
       price: input.price,
       updatedAt,
     };

@@ -13,10 +13,10 @@ beforeAll(() => {
 
 describe("AssetStore.create", () => {
   it("should create an asset", () => {
-    const newAsset = assetStore.create({ name: "NASDAQ", price: 20000 });
+    const newAsset = assetStore.create({ symbol: "NASDAQ", price: 20000 });
 
     expect(newAsset.id).toHaveLength(26); // length of a ulid
-    expect(newAsset.name).toEqual("NASDAQ");
+    expect(newAsset.symbol).toEqual("NASDAQ");
     expect(newAsset.price).toEqual(20000); // $200
     expect(newAsset.updatedAt).toBeString(); // TODO: use test timers to garentee a specific time
   });
@@ -24,7 +24,7 @@ describe("AssetStore.create", () => {
 
 describe("AssetStore.update", () => {
   it("should update an asset price", async () => {
-    const newAsset = assetStore.create({ name: "NASDAQ", price: 20000 });
+    const newAsset = assetStore.create({ symbol: "NASDAQ", price: 20000 });
 
     // Wait a bit to ensure different timestamps
     await new Promise((resolve) => setTimeout(resolve, 1));
@@ -32,7 +32,7 @@ describe("AssetStore.update", () => {
     const updatedAsset = assetStore.update(newAsset.id, { price: 21000 });
 
     expect(updatedAsset.id).toEqual(newAsset.id);
-    expect(updatedAsset.name).toEqual("NASDAQ");
+    expect(updatedAsset.symbol).toEqual("NASDAQ");
     expect(updatedAsset.price).toEqual(21000); // $210
     expect(updatedAsset.updatedAt).toBeString();
     expect(updatedAsset.updatedAt).not.toEqual(newAsset.updatedAt); // should be different
@@ -49,7 +49,7 @@ describe("AssetStore.update", () => {
 
 describe("AssetStore.delete", () => {
   it("should delete an asset", () => {
-    const newAsset = assetStore.create({ name: "NASDAQ", price: 20000 });
+    const newAsset = assetStore.create({ symbol: "NASDAQ", price: 20000 });
 
     assetStore.delete(newAsset.id);
 
@@ -63,13 +63,13 @@ describe("AssetStore.delete", () => {
 
 describe("AssetStore.get", () => {
   it("should get an asset given an asset id", () => {
-    const newAsset = assetStore.create({ name: "NASDAQ", price: 20000 });
+    const newAsset = assetStore.create({ symbol: "NASDAQ", price: 20000 });
 
     const retrievedAsset = assetStore.get(newAsset.id);
 
     expect(retrievedAsset).toBeDefined();
     expect(retrievedAsset?.id).toEqual(newAsset.id);
-    expect(retrievedAsset?.name).toEqual("NASDAQ");
+    expect(retrievedAsset?.symbol).toEqual("NASDAQ");
     expect(retrievedAsset?.price).toEqual(20000);
     expect(retrievedAsset?.updatedAt).toEqual(newAsset.updatedAt);
   });
@@ -90,7 +90,7 @@ describe("AssetStore.list", () => {
     // Verify they have proper structure
     assets.forEach((asset) => {
       expect(asset.id).toBeDefined();
-      expect(asset.name).toBeDefined();
+      expect(asset.symbol).toBeDefined();
       expect(asset.price).toBeGreaterThan(0);
       expect(asset.updatedAt).toBeDefined();
     });
