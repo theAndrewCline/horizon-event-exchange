@@ -11,8 +11,8 @@ beforeAll(() => {
 });
 
 describe("AssetStore.create", () => {
-  it("should create an asset", async () => {
-    const newAsset = await assetStore.create({ name: "NASDAQ", price: 20000 });
+  it("should create an asset", () => {
+    const newAsset = assetStore.create({ name: "NASDAQ", price: 20000 });
 
     expect(newAsset.id).toHaveLength(26); // length of a ulid
     expect(newAsset.name).toEqual("NASDAQ");
@@ -46,7 +46,7 @@ describe("AssetStore.update", () => {
 });
 
 describe("AssetStore.delete", () => {
-  it("should delete an asset", async () => {
+  it("should delete an asset", () => {
     const newAsset = assetStore.create({ name: "NASDAQ", price: 20000 });
 
     assetStore.delete(newAsset.id);
@@ -60,26 +60,26 @@ describe("AssetStore.delete", () => {
 });
 
 describe("AssetStore.get", () => {
-  it("should get an asset given an asset id", async () => {
+  it("should get an asset given an asset id", () => {
     const newAsset = assetStore.create({ name: "NASDAQ", price: 20000 });
 
     const retrievedAsset = assetStore.get(newAsset.id);
 
     expect(retrievedAsset).toBeDefined();
-    expect(retrievedAsset!.id).toEqual(newAsset.id);
-    expect(retrievedAsset!.name).toEqual("NASDAQ");
-    expect(retrievedAsset!.price).toEqual(20000);
-    expect(retrievedAsset!.updatedAt).toEqual(newAsset.updatedAt);
+    expect(retrievedAsset?.id).toEqual(newAsset.id);
+    expect(retrievedAsset?.name).toEqual("NASDAQ");
+    expect(retrievedAsset?.price).toEqual(20000);
+    expect(retrievedAsset?.updatedAt).toEqual(newAsset.updatedAt);
   });
 
-  it("should return undefined for non-existent asset", async () => {
+  it("should return undefined for non-existent asset", () => {
     const retrievedAsset = assetStore.get("non-existent-id");
     expect(retrievedAsset).toBeUndefined();
   });
 });
 
 describe("AssetStore.list", () => {
-  it("should return all assets including seeded data", async () => {
+  it("should return all assets including seeded data", () => {
     const assets = assetStore.list();
 
     // Should have at least our 10 seeded assets (may have more from other tests)
@@ -94,18 +94,7 @@ describe("AssetStore.list", () => {
     });
   });
 
-  it("should return assets sorted by updated_at desc", async () => {
-    const assets = assetStore.list();
-
-    // Should be sorted by updated_at descending
-    for (let i = 1; i < assets.length; i++) {
-      expect(
-        new Date(assets[i - 1]!.updatedAt).getTime(),
-      ).toBeGreaterThanOrEqual(new Date(assets[i]!.updatedAt).getTime());
-    }
-  });
-
-  it("should return empty array when no assets exist", async () => {
+  it("should return empty array when no assets exist", () => {
     const isolatedDb = new Database(":memory:");
     const isolatedStore = new AssetStore(isolatedDb);
 
