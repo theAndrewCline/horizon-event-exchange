@@ -4,10 +4,7 @@ export function App() {
   const { assets, isConnected } = useAssets("ws://localhost:8000");
 
   const sortedAssets = assets
-    ? [...assets].sort(
-        (a, b) =>
-          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-      )
+    ? [...assets].sort((a, b) => a.symbol.localeCompare(b.symbol))
     : assets;
 
   return (
