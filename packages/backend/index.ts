@@ -1,4 +1,5 @@
 import { Database } from "bun:sqlite";
+import type { ServerWebSocket } from "bun";
 import { type CurrentAssetsMessage, MessageSchema } from "core";
 import { AssetStore } from "./asset-store.ts";
 
@@ -10,6 +11,8 @@ const createCurrentAssetsMsg = (): CurrentAssetsMessage => {
   return { type: "CURRENT_ASSETS", assets };
 };
 
+const clients = new Set<ServerWebSocket>();
+
 const server = Bun.serve({
   port: 8000,
   fetch(req, server) {
@@ -20,25 +23,41 @@ const server = Bun.serve({
   },
   websocket: {
     open: (ws) => {
-      ws.sendText(JSON.stringify(createCurrentAssetsMsg()));
+      clients.add(ws);
+      ws.send(JSON.stringify(createCurrentAssetsMsg()));
     },
 
-    message: async (ws, raw_message) => {
+    message: async (_, raw_message) => {
       const message = MessageSchema.parse(JSON.parse(raw_message.toString()));
 
       switch (message.type) {
         case "UPDATE_ASSET": {
           assetStore.update(message.id, message.input);
-          ws.sendText(JSON.stringify(createCurrentAssetsMsg()));
+          // Broadcast to all connected clients
+          const updateMsg = JSON.stringify(createCurrentAssetsMsg());
+          clients.forEach((client) => {
+            if (client.readyState === 1) {
+              client.send(updateMsg);
+            }
+          });
           break;
         }
 
         case "CREATE_ASSET": {
           assetStore.create(message.input);
-          ws.sendText(JSON.stringify(createCurrentAssetsMsg()));
+          const updateMsg = JSON.stringify(createCurrentAssetsMsg());
+          clients.forEach((client) => {
+            if (client.readyState === 1) {
+              client.send(updateMsg);
+            }
+          });
           break;
         }
       }
+    },
+
+    close: (ws) => {
+      clients.delete(ws);
     },
   },
 });
