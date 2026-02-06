@@ -2,7 +2,7 @@ import { type Asset, MessageSchema, type UpdateAssetMessage } from "core";
 
 let assetState: Asset[] = [];
 
-const BACKEND_URL = "ws://localhost:3000";
+const BACKEND_URL = "ws://localhost:8000";
 
 const websocket = new WebSocket(BACKEND_URL);
 

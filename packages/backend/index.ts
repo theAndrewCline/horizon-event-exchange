@@ -11,6 +11,7 @@ const createCurrentAssetsMsg = (): CurrentAssetsMessage => {
 };
 
 const server = Bun.serve({
+  port: 8000,
   fetch(req, server) {
     if (server.upgrade(req)) {
       return;
