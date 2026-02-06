@@ -27,19 +27,22 @@ function getRandomAsset(): Asset | undefined {
   return assetState[Math.floor(Math.random() * assetState.length)];
 }
 
-setInterval(() => {
+const pulse = setInterval(() => {
   const asset = getRandomAsset();
 
   if (asset) {
+    const price = generateRandomPrice();
     const msg: UpdateAssetMessage = {
       type: "UPDATE_ASSET",
       id: asset.id,
-      input: {
-        price: generateRandomPrice(),
-      },
+      input: { price },
     };
 
     websocket.send(JSON.stringify(msg));
-    console.log(msg);
+    console.log(`${asset.symbol}: ${asset.price} -> ${price}`);
   }
 }, 1000);
+
+websocket.addEventListener("close", () => {
+  pulse.close();
+});
