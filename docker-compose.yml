@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_data:/app
+    networks:
+      - horizon-network
+
+  generator:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.generator
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=ws://backend:8000
+    networks:
+      - horizon-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - horizon-network
+
+volumes:
+  sqlite_data:
+
+networks:
+  horizon-network:
+    driver: bridge
