@@ -1,7 +1,7 @@
 import { useAssets } from "./hooks/useAssets";
 
 export function App() {
-  const { assets, isConnected } = useAssets("ws://localhost:8000");
+  const { assets, isConnected } = useAssets(`ws://${window.location.host}/ws`);
 
   const sortedAssets = assets
     ? [...assets].sort((a, b) => a.symbol.localeCompare(b.symbol))
