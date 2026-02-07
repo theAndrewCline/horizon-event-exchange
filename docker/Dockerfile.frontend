@@ -1,0 +1,17 @@
+FROM oven/bun:latest AS build
+
+WORKDIR /app
+
+COPY . .
+
+RUN bun install
+
+RUN cd packages/frontend && bun run build
+
+FROM nginx:alpine AS server
+
+COPY --from=build /app/packages/frontend/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
