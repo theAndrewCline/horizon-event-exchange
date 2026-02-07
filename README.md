@@ -18,13 +18,7 @@ bun install
 All packages have dev scripts that watch files for changes and live update:
 
 ```bash
-# Run all services
 bun run dev
-
-# Run individual packages
-bun run dev:backend
-bun run dev:frontend  
-bun run dev:generator
 ```
 
 ## Docker Development
