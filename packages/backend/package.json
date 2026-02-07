@@ -1,6 +1,9 @@
 {
   "name": "backend",
   "module": "index.ts",
+  "scripts": {
+    "build": "bun build --compile --outfile=backend ./index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "chancejs": "^0.0.8"

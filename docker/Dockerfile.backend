@@ -1,0 +1,21 @@
+FROM oven/bun:latest AS build
+
+WORKDIR /app
+
+COPY . .
+
+RUN bun install
+
+RUN cd packages/backend && bun run build
+
+FROM alpine:latest AS server
+
+RUN apk add --no-cache ca-certificates
+
+WORKDIR /app
+
+COPY --from=build /app/packages/backend/backend ./backend
+
+EXPOSE 8000
+
+CMD ["./backend"]
