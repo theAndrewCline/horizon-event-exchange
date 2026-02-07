@@ -8,13 +8,11 @@ RUN bun install
 
 RUN cd packages/backend && bun run build
 
-FROM alpine:latest AS server
-
-RUN apk add --no-cache ca-certificates
+FROM oven/bun:latest AS server
 
 WORKDIR /app
 
-COPY --from=build /app/packages/backend/backend ./backend
+COPY --from=build /app/packages/backend/backend ./
 
 EXPOSE 8000
 
