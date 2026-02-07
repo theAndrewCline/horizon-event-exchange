@@ -11,5 +11,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "scripts": {
+    "build": "bun build --target bun --minify --outfile generator index.ts"
   }
 }
