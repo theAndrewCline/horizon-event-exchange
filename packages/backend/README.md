@@ -1,15 +1,18 @@
-# backend
+# Backend Package
 
-To install dependencies:
+The backend package provides the server-side implementation for the Horizon Event Exchange system.
 
+## Scripts
+- `dev`: Start development server with hot reload
+- `build`: Compile to executable binary
+
+## Usage
+Run the development server:
 ```bash
-bun install
+bun run dev
 ```
 
-To run:
-
+Build for production:
 ```bash
-bun run index.ts
+bun run build
 ```
-
-This project was created using `bun init` in bun v1.3.8. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
