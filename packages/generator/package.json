@@ -3,6 +3,10 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun --watch index.ts",
+    "build": "bun build --target bun --minify --outfile generator index.ts"
+  },
   "dependencies": {
     "core": "workspace:*"
   },
@@ -11,8 +15,5 @@
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "scripts": {
-    "build": "bun build --target bun --minify --outfile generator index.ts"
   }
 }
